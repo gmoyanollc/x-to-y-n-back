@@ -1,0 +1,15 @@
+{
+  "name": "jsonix-jaxb-mapping-schema",
+  "version": "1.0.0",
+  "description": "generate mappings and json schema from xml schema using jsonix",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "[George Moyano] (https://onename.com/gmoyano)",
+  "license": "MIT",
+  "dependencies": {
+    "jsonix": "^2.4.1",
+    "jsonix-schema-compiler": "^2.3.9"
+  }
+}
