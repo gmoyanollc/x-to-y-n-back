@@ -28,11 +28,6 @@ The JSON and XML file artifacts produced by a test run are expected to meet the 
   1. Both files should validate against schema.
   2. The same data structures and values should exist in both the new XML document and source XML document file.
     * Some declaration and formatting differences are expected such as where a namespace is declared, the label given to a namespace prefix, and missing in-line comments.
-
-##Generate Mappings and JSON Schema for XML Schema.
-```
-    sh map.sh [xml-schema-path-and-file-name]
-```
   
 #Jsonix
 [Jsonix (JSON interfaces for XML)](https://github.com/highsource/jsonix) is a JavaScript library that generates and processes mappings between JavaScript objects and their serialized XML representations.  The mappings are declarative and facilitate the bi-directional transformation of JSON and XML object serializations.  
