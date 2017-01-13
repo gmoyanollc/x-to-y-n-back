@@ -1,27 +1,27 @@
 var fs    = require('fs');
 var Jsonix = require('jsonix').Jsonix;
+var Mapping = require('./lib/mapping.js');
 
-var xmlFile = 'file.xml';
-var json-from-xml-file = 'file-from-xml.json';
-var xml-from-json-file = 'file-from-json.xml';
+var xmlFile = './data/in/source.xml';
+var jsonFromXmlFile = './data/out/from-xml.json';
+var XmlFromJsonFile = './data/out/from-json.xml';
 
 console.log('#Hello World');
-console.log('#load mappings');
-// gCOMMENT mappings go here
-//var [module-1] = require('./mapping/[module-1].js').[module-1];
-//var [module-2] = require('./mapping/[module-2].js').[module-2];
 console.log('#read xml document file');
 var xmlDocument = fs.readFileSync(xmlFile);
 
 console.log('#output xml document string');
 console.log(xmlDocument.toString());
 
+console.log('#instantiate mapping');
+var mapping = new Mapping();
+
 console.log('##construct Jsonix context');
 // First we construct a Jsonix context - a factory for unmarshaller (parser) 
 // and marshaller (serializer) 
-// gCOMMENT context goes here
-//var context = new Jsonix.Context([[module-1], [module-2]]);
- 
+var context = new Jsonix.Context(mapping.getModuleArray());
+
+//var context = new Jsonix.Context(mappingArray);  
 // Then we create a unmarshaller 
 var unmarshaller = context.createUnmarshaller();
 // Unmarshal an object from the XML retrieved from the URL 
@@ -34,21 +34,21 @@ unmarshaller.unmarshalFile(xmlFile,
         var jsonString = JSON.stringify(unmarshalled);
         console.log(jsonString);
         console.log('##write json object to a file');
-        fs.writeFileSync(json-from-xml-file, jsonString);
+        fs.writeFileSync(jsonFromXmlFile, jsonString);
         marshalJsonAsXml();
         done();
     });
     
 function marshalJsonAsXml () {
   console.log('##read json object file to marshal as an XML document');
-  var jsonObjectBuffer = fs.readFileSync(json-from-xml-file);
+  var jsonObjectBuffer = fs.readFileSync(jsonFromXmlFile);
   var marshaller = context.createMarshaller();
   // Marshal as string
   var objectAsXMLString = marshaller.marshalString(JSON.parse(jsonObjectBuffer.toString()));
   console.log('##output xml string');
   console.log(objectAsXMLString);
   console.log('##write xml marshalled from json object file');
-  fs.writeFileSync(xml-from-json-file, objectAsXMLString);
+  fs.writeFileSync(XmlFromJsonFile, objectAsXMLString);
 }
 
 function done() {
